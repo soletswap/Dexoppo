@@ -24,12 +24,15 @@ export async function fetchUniswapPairs() {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ query })
   });
-  const json = await res.json();
+  const json = await res.json() as any;
   const raw: RawPair[] = json.data.pairs;
   const now = Date.now();
 
   raw.forEach(r => {
     const price = parseFloat(r.token0Price);
+    const existing = memoryCache.get(r.id);
+    const now = Date.now();
+    
     const norm: NormalizedPair = {
       id: r.id,
       base: r.token0.symbol,
@@ -39,6 +42,7 @@ export async function fetchUniswapPairs() {
       reserveUSD: parseFloat(r.reserveUSD),
       volumeUSD: parseFloat(r.volumeUSD),
       updatedAt: now,
+      createdAt: existing?.createdAt || now, // Keep original creation time or set new
       chain: "ethereum",
       source: "uniswap-v2",
     };

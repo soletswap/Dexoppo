@@ -1,11 +1,19 @@
 import { fetchUniswapPairs } from "../services/fetch/uniswapFetcher";
+import { initializeMockData } from "../services/fetch/mockData";
 
 export function startJobs() {
-  // İlk çekiş
-  fetchUniswapPairs().catch(console.error);
+  // Initialize with mock data first for testing
+  initializeMockData();
+  
+  // Try to fetch real data, fall back to mock if it fails
+  fetchUniswapPairs().catch((error) => {
+    console.log("⚠️  External API unavailable, using mock data:", error.message);
+  });
 
-  // Her 30 sn
+  // Try to fetch real data every 30 seconds
   setInterval(() => {
-    fetchUniswapPairs().catch(console.error);
+    fetchUniswapPairs().catch((error) => {
+      console.log("⚠️  External API still unavailable:", error.message);
+    });
   }, 30_000);
 }
