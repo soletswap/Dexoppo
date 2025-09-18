@@ -24,7 +24,7 @@ export async function fetchUniswapPairs() {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ query })
   });
-  const json = await res.json();
+  const json = await res.json() as any;
   const raw: RawPair[] = json.data.pairs;
   const now = Date.now();
 
