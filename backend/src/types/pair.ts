@@ -16,7 +16,8 @@ export interface NormalizedPair {
   priceInverse: number;  
   reserveUSD: number;  
   volumeUSD: number;  
-  updatedAt: number;  
+  updatedAt: number;
+  createdAt: number; // Add creation timestamp for new token detection
   chain: string;  
   source: string;  
   sparkline?: number[];  

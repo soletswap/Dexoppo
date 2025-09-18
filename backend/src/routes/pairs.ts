@@ -5,7 +5,8 @@ const router = Router();
 
 router.get("/", (req, res) => {
   const search = req.query.search?.toString();
-  res.json({ data: listPairs(search) });
+  const timeFilter = req.query.timeFilter?.toString();
+  res.json({ data: listPairs(search, timeFilter) });
 });
 
 router.get("/:id", (req, res) => {
