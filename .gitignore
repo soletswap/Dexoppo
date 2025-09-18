@@ -1,0 +1,24 @@
+# Node
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Builds
+.next/
+dist/
+coverage/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Docker
+*.local
+
+# macOS
+.DS_Store
